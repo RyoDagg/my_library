@@ -16,7 +16,7 @@ class LibraryBook(models.Model):
 
     name = fields.Char('Title', required=True)
     date_release = fields.Date(string="Rlease Date")
-    
+
     author_ids = fields.Many2many('res.partner', string="Author")
 
     publisher_id = fields.Many2one(
@@ -69,6 +69,11 @@ class LibraryBook(models.Model):
 
     reader_rating = fields.Float("Reader average rating", digits=(14, 2))
     category_id = fields.Many2one('library.book.categ')
+
+    publisher_city = fields.Char(
+        'Publisher City',
+        related = 'publisher_id.city',
+        readonly = True)
 
     @api.constrains('date_release')
     def _check_release_date(self):
