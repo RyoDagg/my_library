@@ -75,6 +75,17 @@ class LibraryBook(models.Model):
         related = 'publisher_id.city',
         readonly = True)
 
+    ref_doc_id = fields.Reference(
+        selection = '_referencable_models',
+        string = 'Reference Document'
+    )
+
+    @api.model
+    def _referencable_models(self):
+        models = self.env['ir.model'].search([
+            ('field_id.name', '=', 'message_ids')])
+        return [(x.model, x.name) for x in models]
+
     @api.constrains('date_release')
     def _check_release_date(self):
         for record in self:
