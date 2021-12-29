@@ -9,7 +9,10 @@
                 <group>
                     <group>
                         <field name="name"/>
-                        <field name="author_ids" widget="many2many_tags"/>
+
+                        <field name="author_ids"
+                            widget="many2many_tags"/>
+                            
                         <field name="state"/>
                         <field name="pages"/>
                         <field name="notes"/>
@@ -25,7 +28,10 @@
                         <field name="cost_price"/>
                         <field name="retail_price"/>
                         <field name="currency_id"/>
-                        <field name="cover" widget="image" class="oe_avatar"/>
+
+                        <field name="cover" widget="image"
+                            class="oe_avatar"/>
+
                         <field name="reader_rating"/>
                         <field name="age_days"/>
                     </group>
@@ -43,10 +49,17 @@
                 <field name="short_name"/>
                 <field name="name" string="Book Title"/>
                 <field name="date_release"/>
-                <field name="author_ids" string="Author(s)" widget="many2many_tags"/>
+
+                <field name="author_ids" string="Author(s)"
+                    widget="many2many_tags"/>
+
                 <field name="category_id"/>
                 <field name="cost_price"/>
-                <field name="retail_price" string="Selling Price" widget="Monetary"/>
+
+                <field name="retail_price"
+                    string="Selling Price"
+                    widget="Monetary"/>
+
                 <field name="currency_id"/>
                 <field name="publisher_id"/>
             </tree>
@@ -60,7 +73,11 @@
             <search>
                 <field name="name"/>
                 <field name="author_ids"/>
-                <filter name="without_author" string="No Author" domain="[('author_ids', '=', False), ]"/>
+
+                <filter name="without_author"
+                    string="No Author"
+                    domain="[('author_ids', '=', False), ]"/>
+
             </search>
         </field>
     </record>
