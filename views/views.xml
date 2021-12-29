@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="library_book_action" model="ir.actions.act_window">
+        <field name="name">Library Book</field>
+        <field name="res_model">library.book</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

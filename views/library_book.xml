@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<odoo>
+    <!--Form view-->
+    <record id="library_book_view_form" model="ir.ui.view">
+        <field name="name">Library Book Form</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="author_ids" widget="many2many_tags"/>
+                        <field name="state"/>
+                        <field name="pages"/>
+                        <field name="notes"/>
+                    </group>
+                    <group>
+                        <field name="short_name"/>
+                        <field name="date_release"/>
+                        <field name="publisher_id"/>
+                        <field name="date_update"/>
+                        <field name="category_id"/>
+                        <field name="cost_price"/>
+                        <field name="retail_price"/>
+                        <field name="currency_id"/>
+                        <field name="cover" widget="image" class="oe_avatar"/>
+                        <field name="reader_rating"/>
+                        <field name="age_days"/>
+                    </group>
+                    <field name="description"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <!--Tree view-->
+    <record id="library_book_view_tree" model="ir.ui.view">
+        <field name="name">Library Book List</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="short_name"/>
+                <field name="name" string="Book Title"/>
+                <field name="date_release"/>
+                <field name="author_ids" string="Author(s)" widget="many2many_tags"/>
+                <field name="category_id"/>
+                <field name="cost_price"/>
+                <field name="retail_price" string="Selling Price" widget="Monetary"/>
+                <field name="currency_id"/>
+                <field name="publisher_id"/>
+            </tree>
+        </field>
+    </record>
+    <!-- Search view -->
+    <record id="*library_book_view_search" model="ir.ui.view">
+        <field name="name">Library Book Search</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="author_ids"/>
+                <filter name="without_author" string="No Author" domain="[('author_ids', '=', False), ]"/>
+            </search>
+        </field>
+    </record>
+</odoo>

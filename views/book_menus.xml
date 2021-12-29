@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<odoo>
+    <menuitem id="library_base_menu" name="My Library"/>
+    <menuitem id="library_book_menu" parent="library_base_menu" name="Booklist" action="library_book_action"/>
+</odoo>
+
+<!-- <odoo>
+    <menuitem id="library_base_menu" name="My Library">
+        <menuitem id="library_lvl1_menu_1" name="Books">
+            <menuitem id="books_menu" name="Booklist" action="library_book_action"/>
+        </menuitem>
+    </menuitem>
+</odoo> -->
