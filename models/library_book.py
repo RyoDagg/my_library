@@ -1,8 +1,11 @@
 from odoo import models, fields, api
 from datetime import timedelta
+from odoo.exceptions import UserError
+from odoo.tools.translate import _
 
 class LibraryBook(models.Model):
     _name = 'library.book'
+    _inherit = ['base.archive']
     _description = "Library Book"
     _order = 'date_release desc, name'
     _rec_name = 'short_name'
@@ -37,11 +40,13 @@ class LibraryBook(models.Model):
         )
 
     notes = fields.Text("Internal Notes")
+
     state = fields.Selection(
         string="State",
         selection=[
             ('draft', 'Not Available'),
             ('available', 'Available'),
+            ('borrowed', 'Borrowed'),
             ('lost', 'Lost')],
         default='draft')
 
@@ -124,3 +129,57 @@ class LibraryBook(models.Model):
             rec_name = "%s. ($%s)" % (record.name, record.retail_price)
             result.append((record.id, rec_name))
         return result
+
+    @api.model
+    def is_allowed_transition(self, old_state, new_state):
+        allowed = [
+            ('draft', 'available'),
+            ('available', 'borrowed'),
+            ('borrowed', 'available'),
+            ('available', 'lost'),
+            ('borrowed', 'lost'),
+            ('lost', 'available')]
+        return (old_state, new_state) in allowed
+
+    def change_state(self, new_state):
+        for record in self:
+            if record.is_allowed_transition(record.state, new_state):
+                record.state = new_state
+            else:
+                msg = "Moving from %s to %s is not allowed" %(record.state, new_state)
+                raise UserError(msg)
+
+    def make_available(self):
+        self.change_state('available')
+
+    def make_borrowed(self):
+        self.change_state('borrowed')
+
+    def make_lost(self):
+        self.change_state('lost')
+
+    def log_all_library_members(self):
+        library_member_model = self.env['library.member']
+        all_members = library_member_model.search([])
+        print('ALL MEMBERS : ', all_members)
+        return True
+
+    def change_update_date(self):
+        self.ensure_one()
+        self.date_update = fields.Date.today()
+
+    def find_book(self):
+        domain = [
+            '|',
+                '&',('name', 'ilike', 'Book Name'),
+                    ('category_id.name', 'ilike', 'Category Name'),
+                '&',('name', 'ilike', 'Book Name 2'),
+                    ('category_id.name', 'ilike', 'Category Name 2')
+        ]
+        books = self.search(domain)
+        print("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*")
+        print("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*")
+        logger.info('Books found : %s', books)
+        print("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*")
+        print("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*")
+        return True

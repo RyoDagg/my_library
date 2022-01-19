@@ -10,6 +10,8 @@ class BookCategory(models.Model):
     parent_path = fields.Char(index=True)
 
     name = fields.Char(string="Category")
+    description = fields.Text(string="Description")
+
     parent_id = fields.Many2one(
         string="Parent Category",
         comodel_name="library.book.categ",
@@ -26,3 +28,23 @@ class BookCategory(models.Model):
         if not self._check_recursion():
             raise models.ValidationError(
                 'Error! You cannot create recursive categories.')
+
+    def create_categories(self):
+        categ1 = {
+            'name' : 'Child Category 1',
+            'description' : 'jsqdhfjh jshf @1'
+        }
+        categ2 = {
+            'name' : 'Child Category 2',
+            'description' : 'jsqdhfjh jshf @2'
+        }
+
+        parent_categ_val = {
+            'name' : 'Parent Category',
+            'description' : 'PPPPPPPPPPPPPPPPPPPP',
+            'child_ids' : [
+                (0, 0, categ1),
+                (0, 0, categ2)
+            ]
+        }
+        record = self.env['library.book.categ'].create(parent_categ_val)

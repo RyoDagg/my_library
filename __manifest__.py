@@ -18,7 +18,8 @@
 		'security/ir.model.access.csv',
 		'views/views.xml',
 		'views/book_menus.xml',
-		'views/library_book.xml'
+		'views/library_book.xml',
+		'views/book_categ.xml'
 	],
 
 }

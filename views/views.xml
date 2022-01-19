@@ -5,4 +5,16 @@
         <field name="res_model">library.book</field>
         <field name="view_mode">tree,form</field>
     </record>
+
+    <record id="book_category_action" model="ir.actions.act_window">
+        <field name="name">categories</field>
+        <field name="res_model">library.book.categ</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="library_member_action" model="ir.actions.act_window">
+        <field name="name">MEMBERS</field>
+        <field name="res_model">library.member</field>
+        <field name="view_mode">tree,form</field>
+    </record>
 </odoo>

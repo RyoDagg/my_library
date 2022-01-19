@@ -1,11 +1,21 @@
 <?xml version="1.0"?>
 <odoo>
     <menuitem id="library_base_menu" name="My Library"/>
-    
+
     <menuitem id="library_book_menu"
         parent="library_base_menu"
         name="Booklist"
         action="library_book_action"/>
+
+    <menuitem id="book_category_menu"
+        parent="library_base_menu"
+        name="Categories"
+        action="book_category_action"/>
+
+    <menuitem id="library-member_menu"
+        parent="library_base_menu"
+        name="Members"
+        action="library_member_action"/>
 
 </odoo>
 

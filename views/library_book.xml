@@ -6,16 +6,27 @@
         <field name="model">library.book</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <button name="make_available" string="Make Available" type="object"/>
+                    <button name="make_borrowed" string="Make Borrowed" type="object"/>
+                    <button name="make_lost" string="Make Lost" type="object"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <header>
+                    <button name="log_all_library_members" string="Log Members" type="object"/>
+                    <button name="change_update_date" string="Update Date" type="object"/>
+                </header>
                 <group>
                     <group>
                         <field name="name"/>
 
                         <field name="author_ids"
                             widget="many2many_tags"/>
-                            
-                        <field name="state"/>
+
+                        <!-- <field name="state"/> -->
                         <field name="pages"/>
                         <field name="notes"/>
+                        <field name="active"/>
                     </group>
                     <group>
                         <field name="short_name"/>
